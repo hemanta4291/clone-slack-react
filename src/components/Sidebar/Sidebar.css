@@ -57,3 +57,11 @@
 	padding: 5px;
 	display: inline-block;
 }
+.sidebarOption svg {
+    font-size: 17px;
+    margin-right: 7px;
+}
+
+.sidebarOption {
+    padding: 0 17px;
+}

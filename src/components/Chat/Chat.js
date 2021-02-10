@@ -15,10 +15,12 @@ function Chat() {
 
 
 	const messagesEndRef = useRef(null);
-	const scrollToBottom = () => {
+	// const scrollToBottom = () => {
+		
+	// };
+	useEffect(()=>{
 		messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-	};
-	useEffect(scrollToBottom, [roomMessages]);
+	}, [roomMessages]);
 
 
 	useEffect(() => {
@@ -44,13 +46,15 @@ function Chat() {
 	const chatMessages = noMessages ? (
 		<Message noMessages={noMessages} />
 	) : (
-		roomMessages.map(({ message, timestamp, user, userImage }) => (
+		roomMessages.map(({ message, timestamp, user, userImage,uid}) => (
 			<Message
+			chanCreatorId={roomDetails?.chanCreatorId}
 				message={message}
 				timestamp={timestamp}
 				user={user}
 				userImage={userImage}
 				key={timestamp}
+				uid={uid}
 			/>
 		))
 	)

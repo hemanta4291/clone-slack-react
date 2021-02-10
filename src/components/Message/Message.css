@@ -29,9 +29,19 @@
 
 .chat__messages {
     width: 100%;
-    height: 60%;
+    height: 65%;
     position: absolute;
-    top: 20%;
+    top: 18%;
     left: 0;
     overflow-y: scroll;
+}
+.message__info .adm {
+    background: green;
+    display: flex;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
