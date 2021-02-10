@@ -39,7 +39,7 @@ function App() {
               <Sidebar/>
                 <Switch>
                   <Route path="/room/:roomId"><Chat /></Route>
-                  <Route path="/"><h1>wellcome to salck</h1></Route>
+                  <Route path="/"><h1 className="welcome__h1">wellcome to salck</h1></Route>
                 </Switch>
             </div>
           </>

@@ -5,10 +5,13 @@
 	background-color: var(--slack-color);
 	border-top: 1px solid var(--slack-color-light);
 	color: var(--white-color);
-	overflow-y: auto;
+	
+}
+.sidebar__option__wrapper{
+	overflow-y: scroll;
+	height: 70%;
 	overflow-x: hidden;
 }
-
 .sidebar hr {
 	margin: 10px 0;
 	border: 1px solid var(--slack-color-light);

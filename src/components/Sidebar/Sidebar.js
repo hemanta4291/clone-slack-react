@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect,useRef } from "react"
 import "./Sidebar.css"
 import SidebarOption from "../SidebarOption/SidebarOption"
 // import { useStateValue } from "./StateProvider"
@@ -28,9 +28,15 @@ function Sidebar() {
 	const [channels, setChannels] = useState([])
 	// const [loading, setLoading] = useState("")
 	const history = useHistory()
-
+	const messagesEndRef = useRef(null);
+	// const scrollToBottom = () => {
+		
+	// };
+	useEffect(()=>{
+		messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+	}, [channels]);
 	useEffect(() => {
-		db.collection("rooms").onSnapshot((snapshot) => {
+		db.collection("rooms").orderBy("timestamp", "asc").onSnapshot((snapshot) => {
 			setChannels(
 				snapshot.docs.map((doc) => ({
 					id: doc.id,
@@ -68,15 +74,17 @@ function Sidebar() {
 				<CreateIcon />
 			</div>
 			<hr />
-			<SidebarOption Icon={InboxIcon} title="Inbox" />
-			<SidebarOption Icon={DraftsIcon} title="Drafts" />
-			<SidebarOption Icon={BookmarkBorderIcon} title="Bookmark" />
-			<SidebarOption Icon={FileCopyIcon} title="File" />
-			<SidebarOption Icon={PeopleAltIcon} title="People" />
+			<div className="sidebar__option__wrapper">
+			<SidebarOption Icon={InboxIcon} staticc title="Inbox" />
+			<SidebarOption Icon={DraftsIcon} staticc title="Drafts" />
+			<SidebarOption Icon={BookmarkBorderIcon} staticc title="Bookmark" />
+			<SidebarOption Icon={FileCopyIcon} staticc title="File" />
+			<SidebarOption Icon={PeopleAltIcon} staticc title="People" />
 			<hr />
 
 			<SidebarOption Icon={AddIcon} addChannelOption title="Add channel" />
 			<hr/>
+			<>
 			{channels.map((channel) => (
 					<SidebarOption
 						key={channel.id}
@@ -84,6 +92,9 @@ function Sidebar() {
 						id={channel.id}
 					/>
 				))}
+			<div ref={messagesEndRef} ></div>
+			</>
+			</div>
 		</div>
 	)
 }

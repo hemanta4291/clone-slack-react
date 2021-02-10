@@ -24,3 +24,23 @@
 	margin-right: 10px;
 	font-size: inherit;
 }
+
+.requested__wrapper {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+    font-size: 13px;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+}
+
+.requested__wrapper h2 {
+    width: 30px;
+    height: 30px;
+    background: #f00;
+    border-radius: 50%;
+    margin: 0 6px;
+}
