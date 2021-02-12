@@ -57,8 +57,14 @@
 }
 .logout{
 	cursor: pointer;
-	padding: 5px;
-	display: inline-block;
+    padding: 5px 10px 10px 10px;
+    display: inline-block;
+    color: #fff;
+    z-index: 8888;
+    position: relative;
+    background: #f00;
+    border-radius: 5px;
+    margin: 4px 0 10px 0;
 }
 .sidebarOption svg {
     font-size: 17px;
