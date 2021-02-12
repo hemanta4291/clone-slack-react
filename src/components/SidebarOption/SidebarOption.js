@@ -4,14 +4,44 @@ import db, {auth} from "../../firebase"
 import firebase from 'firebase'
 import "./SidebarOption.css"
 import {Avatar} from "@material-ui/core"
+import { makeStyles } from '@material-ui/core/styles';
+import { Button,Input } from '@material-ui/core';
+import {ArrowDropDown,ArrowDropUp} from '@material-ui/icons';
+import Modal from '@material-ui/core/Modal';
 // import { useStateValue } from "../../StateProvider"
 // import { actionTypes } from "../../reducer"
 
+function getModalStyle() {
+	const top = 50;
+	const left = 50;
+  
+	return {
+	  top: `${top}%`,
+	  left: `${left}%`,
+	  transform: `translate(-${top}%, -${left}%)`,
+	};
+  }
+  
+  const useStyles = makeStyles((theme) => ({
+	paper: {
+	  position: 'absolute',
+	  width: 400,
+	  backgroundColor: theme.palette.background.paper,
+	  border: '2px solid #000',
+	  boxShadow: theme.shadows[5],
+	  padding: theme.spacing(2, 4, 3),
+	},
+  }));
+  
+
 function SidebarOpiton({ id, Icon, title,addChannelOption,staticc }) {
+	const classes = useStyles();
+	const [modalStyle] = useState(getModalStyle);
 	const history = useHistory()
 	const [chanelCreators,setChannelCreators] = useState([])
 	const [gusers,setgusers] = useState([])
 	const [guserSingle,setGuserSingle] = useState({})
+	const [open,setOpen] = useState(false)
 	// const [state, dispatch] = useStateValue()
 	// const [{gusers}] = useStateValue()
 	const updategUsers = () =>{
@@ -150,11 +180,31 @@ function SidebarOpiton({ id, Icon, title,addChannelOption,staticc }) {
 		}
 	}
 	const requestApproved=(guId)=>{
-		let con = window.confirm("are you sure to approval him")
+		let con = window.confirm("are you sure to approval him?")
 		if(con){
 			db.collection("rooms").doc(id).collection("gusers").doc(guId).update({
 				ch: true
 			})
+		}
+		
+	}
+	const anabDasable=(guId,ch)=>{
+		if(ch){
+			let con = window.confirm("are you sure to disable this account?")
+			if(con){
+				db.collection("rooms").doc(id).collection("gusers").doc(guId).update({
+					ch: false
+				})
+				updategUsers()
+			}
+		}else{
+			let con = window.confirm("are you sure to anable this account?")
+			if(con){
+				db.collection("rooms").doc(id).collection("gusers").doc(guId).update({
+					ch: true
+				})
+				updategUsers()
+			}
 		}
 		
 	}
@@ -165,8 +215,10 @@ function SidebarOpiton({ id, Icon, title,addChannelOption,staticc }) {
 				.onSnapshot((snapshot) => setChannelCreators(snapshot.data()))
 		}
 	}, [id])
-	const noNeed=()=>{
-
+	const modalUsers=()=>{
+		if(auth.currentUser.uid === chanelCreators.chanCreatorId ){
+			setOpen(true)
+		}
 	}
 	const addChannel = () => {
 		const channelName = prompt("Enter the channel name")
@@ -197,7 +249,7 @@ function SidebarOpiton({ id, Icon, title,addChannelOption,staticc }) {
 					):''
 				} */}
 				{Icon && <Icon className="sidebarOption__icon" />}
-				{Icon? (<h3>{title}</h3>):(<h3># {title}</h3>)}
+				{Icon? (<h3>{title}</h3>):(<h3># {title} <span className="total__group__mamber" onClick={modalUsers}> { gusers.length}m</span></h3>)}
 			</div>
 			{gusers.length>0?(
 				<div className="request__top__wrapper">
@@ -214,6 +266,32 @@ function SidebarOpiton({ id, Icon, title,addChannelOption,staticc }) {
 				</div>
 				
 			):(<div></div>)}
+
+		<Modal
+          open={open}
+          onClose={() =>setOpen(false)}
+        >
+         <div style={modalStyle} className={classes.paper}>
+         <form>
+          <center>
+            <h2 id="simple-modal-title">All Membars</h2>
+              <ul className="group_m_wrapper">
+			  {gusers?.map((gk,i) => (
+					<li>{i+1}. {gk.data.user} {gk.data.ch?(<Button className="false" onClick={()=>anabDasable(gk.id,gk.data.ch)}>Disable</Button>):(<Button className="true" onClick={()=>anabDasable(gk.id,gk.data.ch)}>Anable</Button>)}
+					{auth.currentUser.uid===gk.data.uid?(<span className="admin__abable">ad</span>):null}</li>
+				))}
+				  {/* {
+					  gusers.length>0?
+					  (gusers.map((gk)=>{
+						<li>{gk.data.user}</li>
+					})):''
+				  } */}
+			  </ul>
+              
+          </center>
+          </form>
+        </div>
+      </Modal>
 			
 		</>
 

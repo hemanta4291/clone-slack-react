@@ -56,3 +56,34 @@
 .requested__wrapper p {
     padding-left: 7px;
 }
+span.total__group__mamber {
+    background: green;
+    padding: 5px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 30px;
+    transform: translateY(-17px);
+}
+
+ul.group_m_wrapper li {
+    list-style: decimal;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between
+    
+}
+
+ul.group_m_wrapper li button {
+    margin-left: 10px;
+    margin: 8px 0;
+    color: #fff;
+    font-weight: 600;
+}
+ul.group_m_wrapper li button.false{
+    background: #f00;
+}
+ul.group_m_wrapper li button.true{
+    background: green;
+}

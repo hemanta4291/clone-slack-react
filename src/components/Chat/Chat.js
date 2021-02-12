@@ -58,7 +58,7 @@ function Chat() {
 			/>
 		))
 	)
-	console.log(roomMessages)
+	// console.log(roomMessages)
 	
     return (
         <div className="chat" id="chat__wrapper">
