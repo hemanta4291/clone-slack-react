@@ -45,3 +45,26 @@
     align-items: center;
     border-radius: 50%;
 }
+.more__all{
+    cursor: pointer;
+    color: grey;
+    padding-left: 10px;
+}
+.edit__wrapper {
+    display: flex;
+    justify-content: left;
+    margin: 8px 0;
+}
+.delete__wrapper{
+    display: flex;
+    justify-content: left;
+}
+.edit__wrapper button{
+    display: none;
+}
+.delete__wrapper svg,
+.edit__wrapper svg {
+    margin-left: 14px;
+    font-size: 30px;
+    cursor: pointer;
+}

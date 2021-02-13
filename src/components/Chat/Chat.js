@@ -35,7 +35,13 @@ function Chat() {
 			.collection("messages")
 			.orderBy("timestamp", "asc")
 			.onSnapshot((snapshot) =>
-				setRoomMessages(snapshot.docs.map((doc) => doc.data()))
+				setRoomMessages(snapshot.docs.map((doc) =>(
+					{
+						id: doc.id,
+						data: doc.data()
+					}
+				)
+				))
 			)
 	}, [roomId])
 	useEffect(() => {
@@ -46,17 +52,28 @@ function Chat() {
 	const chatMessages = noMessages ? (
 		<Message noMessages={noMessages} />
 	) : (
-		roomMessages.map(({ message, timestamp, user, userImage,uid}) => (
+		roomMessages.map(({id,data}) => (
 			<Message
 			chanCreatorId={roomDetails?.chanCreatorId}
-				message={message}
-				timestamp={timestamp}
-				user={user}
-				userImage={userImage}
-				key={timestamp}
-				uid={uid}
+				id={id}
+				data={data}
+				channelId={roomId}
+
 			/>
 		))
+		// roomMessages.map(({ message, timestamp, user, userImage,uid}) => (
+		// 	<Message
+		// 	chanCreatorId={roomDetails?.chanCreatorId}
+		// 		message={message}
+		// 		timestamp={timestamp}
+		// 		user={user}
+		// 		userImage={userImage}
+		// 		key={timestamp}
+		// 		uid={uid}
+		// 		channelId={roomId}
+
+		// 	/>
+		// ))
 	)
 	// console.log(roomMessages)
 	

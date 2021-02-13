@@ -277,8 +277,8 @@ function SidebarOpiton({ id, Icon, title,addChannelOption,staticc }) {
             <h2 id="simple-modal-title">All Membars</h2>
               <ul className="group_m_wrapper">
 			  {gusers?.map((gk,i) => (
-					<li>{i+1}. {gk.data.user} {gk.data.ch?(<Button className="false" onClick={()=>anabDasable(gk.id,gk.data.ch)}>Disable</Button>):(<Button className="true" onClick={()=>anabDasable(gk.id,gk.data.ch)}>Anable</Button>)}
-					{auth.currentUser.uid===gk.data.uid?(<span className="admin__abable">ad</span>):null}</li>
+					<li>{i+1}. {gk.data.user} {auth.currentUser.uid===gk.data.uid?(<span className="admin__abable">(admin)</span>):null} {gk.data.ch?(<Button disabled={auth.currentUser.uid===gk.data.uid? 'disabled':''} className="false" onClick={()=>anabDasable(gk.id,gk.data.ch)}>Disable</Button>):(<Button  disabled={auth.currentUser.uid===gk.data.uid? 'disabled':''} className="true" onClick={()=>anabDasable(gk.id,gk.data.ch)}>Anable</Button>)}
+					</li>
 				))}
 				  {/* {
 					  gusers.length>0?
